@@ -51,17 +51,10 @@ jobs:
           update-go-mod-replace ${{ github.workspace }}/core/src/foss/golang/clash/go.mod $(pwd)/go.mod
           go mod tidy
 
-      - uses: tibdex/github-app-token@v2
-        id: generate-token
-        with:
-          app_id: ${{ secrets.MAINTAINER_APPID }}
-          private_key: ${{ secrets.MAINTAINER_APP_PRIVATE_KEY }}
-
       - name: Create Pull Request
         id: cpr
         uses: peter-evans/create-pull-request@v6
         with:
-          token: ${{ steps.generate-token.outputs.token }}
           commit-message: Update Dependencies
           branch: update-dependencies
           delete-branch: true
